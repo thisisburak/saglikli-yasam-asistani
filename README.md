@@ -13,7 +13,6 @@ Bu uygulama, günlük kalori takibi yapmanıza yardımcı olan 🎯 modern bir w
 
 ## 📸 Ekran Görüntüleri
 
-![Ana Sayfa](./screenshots/Mobil.png)
 ![Ana Sayfa](./screenshots/PC.png)
 
 ## 💻 Kurulum
