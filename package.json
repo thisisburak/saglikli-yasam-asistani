@@ -1,0 +1,22 @@
+{
+  "name": "kalori-takip",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "npm run tailwind && npm run sass && npm run start",
+    "tailwind": "npx tailwindcss -i ./src/styles.scss -o ./dist/styles.css --watch",
+    "sass": "sass --watch src/styles.scss:dist/styles.css",
+    "start": "live-server"
+  },
+  "keywords": ["kalori", "takip", "yemek", "diyet"],
+  "author": "",
+  "license": "ISC",
+  "description": "Günlük kalori takibi yapmanıza yardımcı olan web uygulaması",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.49",
+    "sass": "^1.83.4",
+    "tailwindcss": "^3.4.17"
+  }
+}

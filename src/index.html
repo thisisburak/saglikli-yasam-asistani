@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sağlıklı Yaşam Asistanı</title>
+    <link rel="stylesheet" href="/dist/styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-gradient-to-br from-green-50 to-blue-50 font-['Poppins'] flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl max-w-2xl w-full p-8 space-y-6">
+      <!-- Tabs -->
+      <div class="flex justify-center space-x-4 mb-6">
+        <button class="tab-btn active px-6 py-2 rounded-lg font-semibold text-green-600 bg-green-100" data-tab="calculator">Kalori Hesaplama</button>
+        <button class="tab-btn px-6 py-2 rounded-lg font-semibold text-gray-600 hover:bg-green-100" data-tab="bmi">BMI</button>
+        <button class="tab-btn px-6 py-2 rounded-lg font-semibold text-gray-600 hover:bg-green-100" data-tab="water">Su Takibi</button>
+      </div>
+      <form id="calculator" class="space-y-4">
+        <h1 class="text-center font-extrabold text-green-800 text-3xl mb-6">
+          Kalori İhtiyacı Hesaplayıcı
+        </h1>
+        <!-- Cinsiyet -->
+        <fieldset class="space-y-2">
+          <legend class="font-semibold text-green-700">Cinsiyetiniz*</legend>
+          <div class="flex gap-4">
+            <label class="flex items-center text-xl"
+              ><input
+                type="radio"
+                name="gender"
+                value="male"
+                required
+                class="mr-2"
+              />Erkek</label
+            >
+            <label class="flex items-center text-xl"
+              ><input
+                type="radio"
+                name="gender"
+                value="female"
+                required
+                class="mr-2"
+              />Kadın</label
+            >
+          </div>
+        </fieldset>
+        <!-- Yaş -->
+        <div>
+          <label class="block text-green-700 text-xl" for="age">Yaşınız*</label>
+          <input
+            id="age"
+            name="age"
+            type="number"
+            min="10"
+            max="120"
+            required
+            class="input mt-1 w-full p-3 border rounded-lg"
+            placeholder="Örnek: 30"
+          />
+        </div>
+        <!-- Boy -->
+        <div>
+          <label class="block text-green-700 text-xl" for="height"
+            >Boyunuz (cm)*</label
+          >
+          <input
+            id="height"
+            name="height"
+            type="number"
+            min="50"
+            max="250"
+            required
+            class="input mt-1 w-full p-3 border rounded-lg"
+            placeholder="Örnek: 174"
+          />
+        </div>
+        <!-- Kilo -->
+        <div>
+          <label class="block text-green-700 text-xl" for="weight"
+            >Kilonuz (kg)*</label
+          >
+          <input
+            id="weight"
+            name="weight"
+            type="number"
+            min="20"
+            max="300"
+            required
+            class="input mt-1 w-full p-3 border rounded-lg"
+            placeholder="Örnek: 76"
+          />
+        </div>
+        <!-- Aktivite -->
+        <div>
+          <label class="block text-green-700 text-xl" for="activity"
+            >Gün içi hareketlilik seviyeniz*</label
+          >
+          <select
+            id="activity"
+            name="activity"
+            required
+            class="mt-1 w-full p-3 border rounded-lg"
+          >
+            <option value="1.2">Sedanter (çok az hareket)</option>
+            <option value="1.375">Az hareketli (1-3 gün egzersiz)</option>
+            <option value="1.55">Orta (3-5 gün egzersiz)</option>
+            <option value="1.725">Çok aktif (6-7 gün egzersiz)</option>
+            <option value="1.9">Aşırı aktif (profesyonel sporcu)</option>
+          </select>
+        </div>
+        <!-- Hedef -->
+        <div>
+          <label class="block text-green-700 text-xl" for="goal"
+            >Hedefiniz nedir?*</label
+          >
+          <select
+            id="goal"
+            name="goal"
+            required
+            class="mt-1 w-full p-3 border rounded-lg"
+          >
+            <option value="-500">Zayıflamak, yağ yakmak</option>
+            <option value="250">Kilo almak (clean bulking)</option>
+            <option value="500">Hızlı kilo almak (dirty bulking)</option>
+            <option value="0">Kilomu korumak</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3 font-semibold rounded-xl bg-green-600 text-white hover:bg-green-700 transition"
+        >
+          Hesapla
+        </button>
+      </form>
+
+      <!-- Kalori Sonuçları -->
+      <div id="results" class="hidden space-y-4">
+        <div class="bg-gradient-to-r from-green-500 to-blue-500 text-white p-6 rounded-xl shadow-lg">
+          <h3 class="text-2xl font-bold mb-4">Günlük Kalori İhtiyacınız</h3>
+          <div class="text-4xl font-bold mb-2"><span id="calories">0</span> kcal</div>
+          <div class="h-2 bg-white/30 rounded-full mt-4">
+            <div class="progress-bar h-full bg-white rounded-full w-0 transition-all duration-1000"></div>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white p-4 rounded-xl shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-semibold text-green-700">Protein</span>
+              <i class="fas fa-drumstick-bite text-green-500"></i>
+            </div>
+            <p class="text-2xl font-bold mt-2"><span id="protein">0</span>g</p>
+          </div>
+          
+          <div class="bg-white p-4 rounded-xl shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-semibold text-green-700">Karbonhidrat</span>
+              <i class="fas fa-bread-slice text-green-500"></i>
+            </div>
+            <p class="text-2xl font-bold mt-2"><span id="carbs">0</span>g</p>
+          </div>
+          
+          <div class="bg-white p-4 rounded-xl shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-semibold text-green-700">Yağ</span>
+              <i class="fas fa-cheese text-green-500"></i>
+            </div>
+            <p class="text-2xl font-bold mt-2"><span id="fat">0</span>g</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BMI Hesaplayıcı -->
+      <div id="bmi-calculator" class="hidden space-y-4">
+        <h2 class="text-2xl font-bold text-center text-green-800 mb-4">Vücut Kitle İndeksi (BMI) Hesaplama</h2>
+        <form id="bmi-form" class="space-y-4">
+          <div>
+            <label class="block text-green-700 text-xl" for="bmi-weight">Kilonuz (kg)*</label>
+            <input
+              id="bmi-weight"
+              name="weight"
+              type="number"
+              min="20"
+              max="300"
+              required
+              class="mt-1 w-full p-3 border rounded-lg"
+              placeholder="Örnek: 76"
+            />
+          </div>
+          <div>
+            <label class="block text-green-700 text-xl" for="bmi-height">Boyunuz (cm)*</label>
+            <input
+              id="bmi-height"
+              name="height"
+              type="number"
+              min="50"
+              max="250"
+              required
+              class="mt-1 w-full p-3 border rounded-lg"
+              placeholder="Örnek: 174"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full py-3 font-semibold rounded-xl bg-green-600 text-white hover:bg-green-700 transition"
+          >
+            BMI Hesapla
+          </button>
+        </form>
+        <div id="bmi-result" class="hidden bg-gradient-to-r from-green-500 to-blue-500 text-white p-6 rounded-xl shadow-lg text-center">
+          <h3 class="text-xl font-semibold mb-2">BMI Değeriniz</h3>
+          <div class="text-4xl font-bold" id="bmi-value">0</div>
+          <p class="mt-2 text-lg" id="bmi-category"></p>
+        </div>
+      </div>
+
+      <!-- Su Takibi -->
+      <div id="water-tracker" class="hidden space-y-4">
+        <h2 class="text-2xl font-bold text-center text-green-800 mb-4">Günlük Su Takibi</h2>
+        <div class="flex justify-center space-x-4 mb-4">
+          <button id="remove-water" class="bg-red-100 text-red-600 p-3 rounded-full hover:bg-red-200">
+            <i class="fas fa-minus"></i>
+          </button>
+          <div class="text-center">
+            <div class="text-4xl font-bold text-blue-600" id="water-amount">0</div>
+            <div class="text-sm text-gray-600">bardak su</div>
+          </div>
+          <button id="add-water" class="bg-blue-100 text-blue-600 p-3 rounded-full hover:bg-blue-200">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+        <div class="relative h-48 bg-blue-100 rounded-xl overflow-hidden">
+          <div id="water-level" class="absolute bottom-0 w-full bg-blue-500 transition-all duration-500" style="height: 0%"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <i class="fas fa-tint text-4xl text-blue-600"></i>
+          </div>
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/src/js/script.js"></script>
+  </body>
+</html>
