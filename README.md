@@ -19,6 +19,7 @@ Bu uygulama, günlük kalori takibi ve sağlıklı yaşam için 🎯 modern bir 
 
 1. 📥 Projeyi klonlayın
 2. 📦 `npm install` komutunu çalıştırın
+3. 🚀 `dist>styles.css dosyasını oluşturun.`
 3. 🚀 `index.html dosyasını styles.css dosyasına bağlayın `
 4. 🚀 `npm run watch:sass` ile uygulamayı başlatın
 
